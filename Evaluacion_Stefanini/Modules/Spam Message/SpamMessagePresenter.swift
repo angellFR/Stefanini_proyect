@@ -26,6 +26,14 @@ class SpamMessagePresenter {
 
 //MARK: - Presenter Methods
 extension SpamMessagePresenter: SpamMessagePresenterProtocol {
+    func getListEmail() {
+        interactor?.getListEmail()
+    }
+    
+    func infoEmail(data: Results) {
+        view?.infoEmail(data: data)
+    }
+    
     
 }
 

@@ -6,11 +6,17 @@
 //
 
 import UIKit
+import CoreData
 
 class HomeTableViewCell: UITableViewCell {
     static let identifier = "HomeTableViewCell"
     var favoritoValidation = 0
     var spamVlidation = 0
+    var deleteValidation = 0
+ 
+
+    
+  
     
     private var buttonDestacado: UIButton = {
         let button = UIButton()
@@ -53,7 +59,7 @@ class HomeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-   
+        setup()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -90,36 +96,37 @@ class HomeTableViewCell: UITableViewCell {
     
     @objc func deletMensaje(){
         print("Mensaje Borrado")
-        buttonDelete.setImage(UIImage(systemName: "trash.fill"), for: .normal)
+        if deleteValidation == 0 {
+            buttonDelete.setImage(UIImage(systemName: "trash.fill"), for: .normal)
+           print("correo eliminado")
+        }
     }
     
     @objc func favorito(){
-        print("favorito")
-       
-        if favoritoValidation == 0 {
-            print("true")
-            buttonDestacado.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            favoritoValidation = 1
-        }else{
-            buttonDestacado.setImage(UIImage(systemName: "heart"), for: .normal)
-            print("false")
-            favoritoValidation = 0
-        }
         
+        if favoritoValidation == 1 {
+            favoritoValidation = 0
+            buttonDestacado.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            print("Correo destacado")
+            
+        } else {
+            buttonDestacado.setImage(UIImage(systemName: "heart"), for: .normal)
+            favoritoValidation = 1
+        }
+
     }
     
     @objc func spam(){
-        print("Mensaje Spam")
         
-        if favoritoValidation == 0 {
-            print("true")
+        if deleteValidation == 0 {
             buttonSpam.setImage(UIImage(systemName: "xmark.bin.fill"), for: .normal)
-            favoritoValidation = 1
-        }else{
-            buttonSpam.setImage(UIImage(systemName: "xmark.bin.fill"), for: .normal)
-            print("false")
-            favoritoValidation = 0
+           print("correo en spam")
         }
+        
+        }
+    
+//        self.movieFavorite.reloadData()
     }
+    
 
-}
+

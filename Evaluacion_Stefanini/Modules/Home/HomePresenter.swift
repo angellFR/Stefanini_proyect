@@ -26,18 +26,6 @@ class HomePresenter {
 
 //MARK: - Presenter Methods
 extension HomePresenter: HomePresenterProtocol {
-    func favoriteVC() {
-        router.favoriteVC()
-    }
-    
-    func deleteVC() {
-        router.deleteVC()
-    }
-    
-    func spamVC() {
-        router.spamVC()
-    }
-    
     
     func getListEmail() {
         interactor?.getListEmail()

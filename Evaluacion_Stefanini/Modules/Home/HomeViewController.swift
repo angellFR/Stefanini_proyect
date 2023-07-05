@@ -13,11 +13,10 @@ import UIKit
 class HomeViewController: UIViewController {
     //MARK: - Protocol Properties
 	var presenter: HomePresenterProtocol?
-    let defaults = UserDefaults.standard
-
-    //MARK: - Properties
+      //MARK: - Properties
     var dataSource: Results?
-    let tabBarVC = UITabBarController()
+//    var dataemail = [email]()
+    
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +32,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         presenter?.getListEmail()
         setupUI()
-        tab()
+//        tab()
     }
     
     //MARK: - Methods
@@ -55,6 +54,7 @@ class HomeViewController: UIViewController {
 
 //MARK: - View Methods
 extension HomeViewController: HomeViewProtocol, UITableViewDataSource, UITableViewDelegate {
+    
     func infoEmail(data: Results) {
         dataSource = data
         print("data view:::: \(dataSource)")
@@ -70,32 +70,16 @@ extension HomeViewController: HomeViewProtocol, UITableViewDataSource, UITableVi
 //        let cell = UITableViewCell()
         guard let resul = dataSource?.results else { return cell }
         cell.configure(model: resul[indexPath.row])
-       
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
 }
 
 //MARK: - Private functions
 extension HomeViewController {
-    func tab(){
-        let favoriteVC = presenter?.favoriteVC
-        let deleteVC = presenter?.deleteVC
-        let spamVC = presenter?.spamVC
-        
-        let item1 = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-        let item2 = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-        let item3 = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
-        
-        favoriteVC.tabBarItem = item1
-        deleteVC.tabBarItem = item2
-        spamVC.tabBarItem = item3
-        
-        tabBarVC.viewControllers = [favoriteVC,deleteVC,spamVC]
-        
-        self.view.addSubview(tabBarVC.view)
-    }
     
+ 
 }

@@ -28,11 +28,11 @@ class TabControllerViewController: UITabBarController, UITabBarControllerDelegat
     private func setupTabs(){
         
         let home = self.createNav(whit: "Home", and: UIImage(systemName: "house"), vc: HomeRouter.createModule())
-        let favoriteCV = self.createNav(whit: "Favorito", and: UIImage(systemName: "heart"), vc: FavoriteMessageRouter.createModule())
+
         let spamCV = self.createNav(whit: "Spam", and: UIImage(systemName: "xmark.bin"), vc: SpamMessageRouter.createModule())
         let deleteCV = self.createNav(whit: "Papelera", and: UIImage(systemName: "trash"), vc: DeleteMessageRouter.createModule())
         
-    self.setViewControllers([home,favoriteCV,spamCV,deleteCV], animated: true)
+    self.setViewControllers([home,spamCV,deleteCV], animated: true)
 
 }
 

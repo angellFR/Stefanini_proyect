@@ -12,18 +12,14 @@ import Foundation
 
 //MARK: Wireframe -
 protocol HomeWireframeProtocol: AnyObject {
-    func favoriteVC()
-    func deleteVC()
-    func spamVC()
+ 
 
 }
 //MARK: Presenter -
 protocol HomePresenterProtocol: AnyObject {
     func infoEmail(data: Results)
     func getListEmail()
-    func favoriteVC()
-    func deleteVC()
-    func spamVC()
+    
 }
 
 //MARK: Interactor -

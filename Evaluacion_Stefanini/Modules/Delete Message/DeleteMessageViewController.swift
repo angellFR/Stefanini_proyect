@@ -10,25 +10,64 @@
 
 import UIKit
 
-class DeleteMessageViewController: UIViewController {
-
+class DeleteMessageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     //MARK: - Protocol Properties
 	var presenter: DeleteMessagePresenterProtocol?
 
     //MARK: - Properties
+    var dataSource: Results?
+    private var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(DeleteTableViewCell.self, forCellReuseIdentifier: "DeleteTableViewCell")
+        return tableView
+    }()
     
     //MARK: - Life Cycle
 	override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
+        setupUI()
+        presenter?.getListEmail()
     }
     
     //MARK: - Methods
+    func setupUI() {
+        view.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor)
+        ])
+        }
 }
 
 //MARK: - View Methods
 extension DeleteMessageViewController: DeleteMessageViewProtocol {
     
+    func infoEmail(data: Results) {
+        dataSource = data
+        print("data view:::: \(dataSource)")
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource?.results?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DeleteTableViewCell", for: indexPath) as! DeleteTableViewCell
+        guard let resul = dataSource?.results else { return cell }
+        cell.configure(model: resul[indexPath.row])
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
 }
 
 //MARK: - Private functions

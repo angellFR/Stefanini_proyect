@@ -10,25 +10,69 @@
 
 import UIKit
 
-class SpamMessageViewController: UIViewController {
-
+class SpamMessageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     //MARK: - Protocol Properties
 	var presenter: SpamMessagePresenterProtocol?
 
     //MARK: - Properties
+    var dataSource: Results?
+    
+    private var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(SpamTableViewCell.self, forCellReuseIdentifier: "SpamTableViewCell")
+        return tableView
+    }()
     
     //MARK: - Life Cycle
 	override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
+        setupUI()
+        presenter?.getListEmail()
     }
     
     //MARK: - Methods
+    
+    func setupUI() {
+        view.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor)
+        ])
+        }
+        
+    
 }
 
 //MARK: - View Methods
 extension SpamMessageViewController: SpamMessageViewProtocol {
+    func infoEmail(data: Results) {
+        dataSource = data
+        print("data view:::: \(dataSource)")
+        tableView.reloadData()
+    }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource?.results?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SpamTableViewCell", for: indexPath) as! SpamTableViewCell
+        guard let resul = dataSource?.results else { return cell }
+        cell.labelName.text = resul[indexPath.row].name
+        cell.labelDescripcion.text = resul[indexPath.row].detail
+        cell.labelHour.text = resul[indexPath.row].hour
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
 }
 
 //MARK: - Private functions

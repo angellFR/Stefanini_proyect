@@ -26,6 +26,14 @@ class DeleteMessagePresenter {
 
 //MARK: - Presenter Methods
 extension DeleteMessagePresenter: DeleteMessagePresenterProtocol {
+    func infoEmail(data: Results) {
+        view?.infoEmail(data: data)
+    }
+    
+    func getListEmail() {
+        interactor?.getListEmail()
+    }
+    
     
 }
 

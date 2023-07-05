@@ -18,4 +18,18 @@ class DeleteMessageInteractor {
 //MARK: - Interactor Methods
 extension DeleteMessageInteractor: DeleteMessageInteractorProtocol {
     
+    func getListEmail() {
+        
+        let data = Results(results: [
+            .init(name: "juan alvarez", detail: "Reinscripciones", hour: "10:50"),
+            .init(name: "ignacio alvares", detail: "calendario", hour: "10:55"),
+            .init(name: "luis flores", detail: "cotizacion", hour: "11:30"),
+            .init(name: "fernanda flores", detail: "verificacion", hour: "11:31"),
+            .init(name: "diego rivera", detail: "venta", hour: "12:20"),
+            .init(name: "diana ventura", detail: "ofertas", hour: "12:40"),
+            .init(name: "melani vazquez", detail: "pc gamer", hour: "13:10"),
+            .init(name: "esteban ramirez", detail: "curso ios", hour: "13:20"),
+        ])
+        presenter?.infoEmail(data: data)
+    }
 }

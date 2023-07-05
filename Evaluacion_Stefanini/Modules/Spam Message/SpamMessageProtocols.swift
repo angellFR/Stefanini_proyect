@@ -16,17 +16,18 @@ protocol SpamMessageWireframeProtocol: AnyObject {
 }
 //MARK: Presenter -
 protocol SpamMessagePresenterProtocol: AnyObject {
-
+    func getListEmail()
+    func infoEmail(data: Results)
 }
 
 //MARK: Interactor -
 protocol SpamMessageInteractorProtocol: AnyObject {
-
+    func getListEmail()
   var presenter: SpamMessagePresenterProtocol?  { get set }
 }
 
 //MARK: View -
 protocol SpamMessageViewProtocol: AnyObject {
-
+    func infoEmail(data: Results)
   var presenter: SpamMessagePresenterProtocol?  { get set }
 }

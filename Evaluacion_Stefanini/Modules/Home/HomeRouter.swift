@@ -32,21 +32,7 @@ class HomeRouter {
 
 //MARK: - Router Metods
 extension HomeRouter: HomeWireframeProtocol {
-    func favoriteVC() {
-        let vc = FavoriteMessageRouter.createModule()
-        viewController?.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func deleteVC() {
-        let vc = DeleteMessageRouter.createModule()
-        viewController?.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func spamVC() {
-        let vc = SpamMessageRouter.createModule()
-        viewController?.navigationController?.pushViewController(vc, animated: true)
-    }
-    
+   
     
 }
 

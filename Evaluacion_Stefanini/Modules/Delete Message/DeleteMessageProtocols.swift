@@ -16,17 +16,18 @@ protocol DeleteMessageWireframeProtocol: AnyObject {
 }
 //MARK: Presenter -
 protocol DeleteMessagePresenterProtocol: AnyObject {
-
+    func infoEmail(data: Results)
+    func getListEmail()
 }
 
 //MARK: Interactor -
 protocol DeleteMessageInteractorProtocol: AnyObject {
-
+    func getListEmail()
   var presenter: DeleteMessagePresenterProtocol?  { get set }
 }
 
 //MARK: View -
 protocol DeleteMessageViewProtocol: AnyObject {
-
+    func infoEmail(data: Results)
   var presenter: DeleteMessagePresenterProtocol?  { get set }
 }
